@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>FAQ</title>
+</head>
+<body>
+<h1 align="center">Kenneth Evans's GitHub Repositories</h1>
+<h1 align="center">Frequently Asked Questions</h1>
+<h2>What is the license?</h2>
+<p>The license for Ken's projects is almost always the <a href="https://en.wikipedia.org/wiki/MIT_License">MIT License</a> for his own work. In some cases the projects use third party software, which is subject to its own licenses. Some projects are wrapper projects, which consist entirely of third party software. In these cases an attempt has been made to include the relevant licenses in the project.</p>
+<p>In many cases Ken's work has been influenced by Open Source code and other information available on the Internet. He would like to acknowledge that and thanks those contributors. It is difficult to find code these days that is not Open Source, at least in part.</p>
+<h2>What operating systems can be used?</h2>
+<p>Java can in principle be run on many platforms. Ken only tests Java applications on Windows. Most of his Java applications use the Windows look and feel, not the default Java look and feel. </p>
+<p>Ken develops and tests on Android and Windows 10. Android apps, of course, require an Android device. There are many Android devices with widely-varying capabilities. Ken only tests on the few he has. His C, C++, and C# applications are built for Windows. They should run on any recent Windows platform, as least on Windows 7 or later. The C# applications may need to have the proper .NET Framework installed. If you don't have the proper framework, Microsoft .NET Framework 4.5 can be downloaded at <a href="https://www.microsoft.com/en-us/download/details.aspx?id=30653">https://www.microsoft.com/en-us/download/details.aspx?id=30653.</a></p>
+<p>If these links change, it should not be hard to Google for what you need. </p>
+<h2>What is needed for Java projects?</h2>
+<p>Many of Ken's applications are Java applications. These require having 32-bit Java installed on your computer. Java is reasonably easy to install and is available from Oracle at <a href="https://java.com">https://java.com</a>. The version installed by default on many Linux systems will likely not work well.</p>
+<p>It is suggested to get the latest Java version (currently Java 8). Most of Ken's applications are built for Java 7, and will run on that or later versions. In the future when Java 9 is available, they will likely be built with Java 9, since that will be the first version that supports high-resolution displays.</p>
+<h2>What about Java for high-resolution displays?</h2>
+<p>High-resolution displays are becoming more common. However, many applications do not work well on these displays, for Windows at least. Java is currently one of them. Java 9 is supposed to fix this problem, but it is not yet available, except in beta. </p>
+<p>The problem is that applications can internally set themselves to be dpiAware, and most do so. This means they provide the necessary resources to handle displays of various resolutions. The problem is that they do not do a good job on the newer, larger displays, which were not readily available when they were developed. On high-resolution displays the application components will be very small and hard to read, if they have not done this properly.</p>
+<p>Probably the best solution involves telling the applications that they are <strong>not</strong> dpiAware. In that case Windows scales them itself. In the latest releases it does a pretty good job.The solution, in short, requires putting an additional file named xxx.exe.manifest in the same directory as xxx.exe and setting a registry key that says to use this manifest instead of the internal one.</p>
+<p>There are articles on the Internet describing how to do this, but there are few totally complete ones. This is a short explanation of what to do. </p>
+<p><strong>Manifest</strong></p>
+<p>For the manifest, the best thing is to get the manifest from the xxx.exe. This can be done by opening the xxx.exe in Visual Studio, and there are other application that profess to be able to extract the manifest. Once you have the manifest, which is an XML file, you find the lines which have dpiAware in them. They will be setting it to true. Change true to false. It may be easier to edit the manifest if you change its name to xxx.exe.manifest.xml, as many editors will then format it in a way that is easier to read. The common browsers open and display XML files, as well. Rename it before putting it next to xxx.exe. </p>
+<p>You probably only need to do this for javaw.exe and not java.exe, as it is probably only GUI applications that need this fix, and those are usually best run with javaw. </p>
+<p>If this is too much trouble, the following manifest will probably work for both java.exe and javaw.exe:</p>
+<pre>
+&lt;assembly xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot; manifestVersion=&quot;1.0&quot; xmlns:asmv3=&quot;urn:schemas-microsoft-com:asm.v3&quot;&gt;
+&lt;assemblyIdentity version=&quot;8.0.112.15&quot; processorArchitecture=&quot;X86&quot; name=&quot;Oracle Corporation, Java(tm) 2 Standard Edition&quot; type=&quot;win32&quot;&gt;&lt;/assemblyIdentity&gt;
+&lt;description&gt;Java(TM) SE java process&lt;/description&gt;
+&lt;dependency&gt;
+    &lt;dependentAssembly&gt;
+        &lt;assemblyIdentity type=&quot;win32&quot; name=&quot;Microsoft.Windows.Common-Controls&quot; version=&quot;6.0.0.0&quot; processorArchitecture=&quot;*&quot; publicKeyToken=&quot;6595b64144ccf1df&quot; language=&quot;*&quot;&gt;&lt;/assemblyIdentity&gt;
+    &lt;/dependentAssembly&gt;
+&lt;/dependency&gt;
+  &lt;trustInfo xmlns=&quot;urn:schemas-microsoft-com:asm.v3&quot;&gt;
+    &lt;security&gt;
+      &lt;requestedPrivileges&gt;
+        &lt;requestedExecutionLevel level=&quot;asInvoker&quot; uiAccess=&quot;false&quot;&gt;&lt;/requestedExecutionLevel&gt;
+        &lt;/requestedPrivileges&gt;
+       &lt;/security&gt;
+  &lt;/trustInfo&gt;
+  &lt;asmv3:application&gt;
+    &lt;asmv3:windowsSettings xmlns=&quot;http://schemas.microsoft.com/SMI/2005/WindowsSettings&quot;&gt;
+       &lt;dpiAware&gt;false&lt;/dpiAware&gt;
+    &lt;/asmv3:windowsSettings&gt;
+  &lt;/asmv3:application&gt;
+   &lt;compatibility xmlns=&quot;urn:schemas-microsoft-com:compatibility.v1&quot;&gt;
+      &lt;application&gt;
+        &lt;supportedOS Id=&quot;{e2011457-1546-43c5-a5fe-008deee3d3f0}&quot;&gt;&lt;/supportedOS&gt;
+        &lt;supportedOS Id=&quot;{35138b9a-5d96-4fbd-8e2d-a2440225f93a}&quot;&gt;&lt;/supportedOS&gt;
+        &lt;supportedOS Id=&quot;{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}&quot;&gt;&lt;/supportedOS&gt;
+        &lt;supportedOS Id=&quot;{1f676c76-80e1-4239-95bb-83d0f6d0da78}&quot;&gt;&lt;/supportedOS&gt;
+        &lt;supportedOS Id=&quot;{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}&quot;&gt;&lt;/supportedOS&gt;
+      &lt;/application&gt;
+    &lt;/compatibility&gt;
+&lt;/assembly&gt;
+</pre>
+<p><strong>Registry</strong></p>
+<p>If you know what you are doing, it is a simple matter to go to HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide, and add a new DWORD (32-bit) Value named PreferExternalManifest and set its value to 1. Use Hexadecimal though it doesn't matter.</p>
+<p>If you are unsure, there is a set of detailed steps with pictures at <a href="http://www.danantonielli.com/adobe-app-scaling-on-high-dpi-displays-fix/">http://www.danantonielli.com/adobe-app-scaling-on-high-dpi-displays-fix/</a>. This is one of the first and most quoted articles, even though it is for Photoshop. It is much more complete than what is presented here. You can by the way, probably just use the manifest he provides for Photoshop. It doesn't seem to matter. And he also provides a REG file to fix the registry. </p>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+</body>
+</html>
