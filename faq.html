@@ -11,6 +11,14 @@
 <h2>What is the license?</h2>
 <p>The license for Ken's projects is almost always the <a href="https://en.wikipedia.org/wiki/MIT_License">MIT License</a> for his own work. In some cases the projects use third party software, which is subject to its own licenses. Some projects are wrapper projects, which consist entirely of third party software. In these cases an attempt has been made to include the relevant licenses in the project.</p>
 <p>In many cases Ken's work has been influenced by Open Source code and other information available on the Internet. He would like to acknowledge that and thanks those contributors. It is difficult to find code these days that is not Open Source, at least in part.</p>
+<h2>What is in the repositories?</h2>
+<p>The repositories consist of projects. Some produce applications and others are libraries.</p>
+<ul>
+  <li>The Java applications use Eclipse. </li>
+  <li>The Android applications use Android Studio.</li>
+  <li>The C/C++ and C# applications use Visual Studio.</li>
+</ul>
+<p>The associated development environments change versions frequently. The projects were working in their respective development environment, using Ken's settings, at the time they were committed, If you export them, it may (or may not) take some effort to get them working in your environment.</p>
 <h2>What operating systems can be used?</h2>
 <p>Java can in principle be run on many platforms. Ken only tests Java applications on Windows. Most of his Java applications use the Windows look and feel, not the default Java look and feel. </p>
 <p>Ken develops and tests on Android and Windows 10. Android apps, of course, require an Android device. There are many Android devices with widely-varying capabilities. Ken only tests on the few he has. His C, C++, and C# applications are built for Windows. They should run on any recent Windows platform, as least on Windows 7 or later. The C# applications may need to have the proper .NET Framework installed. If you don't have the proper framework, Microsoft .NET Framework 4.5 can be downloaded at <a href="https://www.microsoft.com/en-us/download/details.aspx?id=30653">https://www.microsoft.com/en-us/download/details.aspx?id=30653.</a></p>
@@ -39,6 +47,12 @@
   <li>Install the APK. The ways to do this vary depending on your device. If attached to email, double tapping the attachment seems to usually work, but it depends on your device and email client. Double tapping it in your file explorer may work. </li>
   <li>Manage or uninstall it as you would any other app. Use the Application Manager in Settings.</li>
 </ol>
-<p>If you have trouble with these steps, there should be help on the Internet for your particular situation. </p>
+<p>If you have trouble with these steps, there should be help on the Internet for your particular situation.</p>
+<h2>How do I install a C/C++, C#, or Java application from this site?</h2>
+<p>These instructions are for Windows. The Java applications should run on other platforms but have not been tested by Ken on any platforms other than Windows.</p>
+<p>None of the applications comes with an installer. For those for which there is a download, it will be in the form of a directory with what is needed to run the program inside. Just extract the directory and put it somewhere, then run the executable or JAR file. To uninstall, just remove the directory. If reinstalling, it would be safest to install it into a fresh directory, but you may lose settings. You will have to experiment. Eclipse RCP applications require Java to be installed, but have an executable, not a JAR. </p>
+<p>For Java, apart from RCP applications, there will be a JAR file. You should be able to run the application by double-clicking the JAR file. However, there is no way to set arguments for the Java Virtual Machine (VM), such as asking for more memory, when doing this. The programs should have a Windows shortcut included in the directory that runs the JAR file with the suggested VM arguments. Since Windows hard codes the entire path to Java or Javaw in the shortcut, it may not work on your machine out of the box. Right click the shortcut and go to Properties. The Target is typically of the form:</p>
+<pre>        &lt;path&gt;<path>javaw.exe -jar xxx.jar</pre>
+<p>where &lt;path&gt; is the full path. To fix it for your system, just replace the entire &lt;path&gt;javaw.exe with javaw. Windows will replace it with the full path of the version of Java in your PATH (or tell you if it can't find it). Typically, there is also an ICO file for the application included. If the icon for the shortcut changes to the one for Javaw, then choose Change Icon.. in the properties and use the ICO file. </p>
 </body>
 </html>
